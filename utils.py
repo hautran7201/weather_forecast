@@ -1,6 +1,7 @@
 import numpy as np
 import pickle
 import matplotlib.pyplot as plt
+import tensorflow as tf
 
 
 def mean_square_error(A, B):
@@ -16,6 +17,10 @@ def pickle_dump(path, X_test):
 def pickle_load(path):
     with open(path, "rb") as file:
         return pickle.load(file)
+    
+
+def tf_load(path):
+    return tf.keras.models.load_model(path)
 
 
 def evaluation_plot(true_value, prediction, show=True, save_as=None):

@@ -11,7 +11,7 @@ def train(
         data_folder=r"dataset\train_val_data",
         batch_size = 512,
         epochs = 100,
-        model_path = r"model\train\model.pickle",
+        model_path = r"model\train\model.h5",
         patience_of_early_stopping = 3,
         ):
     # Load data
@@ -38,16 +38,16 @@ def train(
         model_path=model_path
     )
 
-    model.train(
+    """model.train(
         (X_train, Y_train),
         (X_val, Y_val),
         batch_size=batch_size,
         epochs=epochs,
-        path=path,
+        path=model_path,
         patience=patience_of_early_stopping,
-    )
+    )"""
 
-    print('Done')
     # Save GRU_model
-    path = r'model\train\GRU_Model.h5'
+    path = r'model\train\GRU_Model.pkl'
     utils.pickle_dump(path, model)
+

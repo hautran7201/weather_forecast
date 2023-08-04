@@ -8,7 +8,7 @@ sys.path.insert(5, './')
 
 from stl_dataset import dataset_mode
 from stl_data_preparation import data_preparation_mode
-from stl_model import train_mode
+from stl_model import train_mode, test_mode
 
 
 # Stream lit
@@ -34,7 +34,13 @@ if option == 'Dataset':
 elif option == 'Data preparation':
     data_preparation_mode()
 else:
-    train_mode()
+    st.header("Model")
+
+    train_tab, valuation_tab, inference_tab = st.tabs(["Train", "Valuation", "inference"])
+    with train_tab:
+        train_mode()
+    with valuation_tab:
+        test_mode()
     
 
 

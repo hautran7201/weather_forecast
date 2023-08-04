@@ -1,4 +1,14 @@
-import tensorflow as tf 
+import pandas as pd
+from model.test.test import test
 
-model_path = r'D:\Desktop\Weather forecast\model\train\model.pickle'
-tf.keras.models.load_model(model_path)
+feature = 'max'
+province = 'Bac Lieu'
+y_df, predict_df = test(province=province)
+
+y = y_df[[feature]]
+y.columns = ['True value']
+
+predict = predict_df[[feature]]
+predict.columns = ['Predict']
+
+print(pd.concat([y, predict], axis=1))

@@ -24,12 +24,11 @@ def generate_data(
     # Parameters
     ratio = 0.8  # Split ratio
     df_length = len(cleaned_df)  # Number of sample
-    parameters.Step = step = 1  # Distance between days
-    parameters.PastLength = past = 60  # Number of days in the past used to predict
-    parameters.FutureLength = future_length = 5  # Number of predicted days in the future
-    parameters.DistinFeature = distin_feature = "province"  # Prepare data for each province
-    parameters.TargetFeature = target_feature = list(selected_feature)  # Feature for output
-    utils.pickle_dump(parameter_path, parameters)  # Save parameters
+    step = 1  # Distance between days
+    past = 60  # Number of days in the past used to predict
+    future_length = 5  # Number of predicted days in the future
+    distin_feature = "province"  # Prepare data for each province
+    target_feature = list(selected_feature)  # Feature for output
 
 
     # Generator
@@ -48,3 +47,11 @@ def generate_data(
     np.save(file_save_path+r"\Y_val.npy", Y_val)
     utils.pickle_dump(file_save_path+r"\X_test.pkl", X_test)
     utils.pickle_dump(file_save_path+r"\Y_test.pkl", Y_test)
+
+    # Save parameters
+    parameters.Step = step  # Distance between days
+    parameters.PastLength = past # Number of days in the past used to predict
+    parameters.FutureLength = future_length  # Number of predicted days in the future
+    parameters.DistinFeature = distin_feature # Prepare data for each province
+    parameters.TargetFeature = target_feature # Feature for output
+    utils.pickle_dump(parameter_path, parameters)  # Save parameters

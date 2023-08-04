@@ -67,8 +67,8 @@ class GRU_model:
 
         return self.model, history
 
-    def evaluation(self, X, Y, future_length):
-        num_of_feature = int(self.output_shape[0] / future_length)
+    def evaluation(self, X, Y):
+        num_of_feature = int(self.output_shape[0] / self.future_length)
 
         predict = self.model.predict(X).reshape(1, -1)[0]
         predict = np.array(
@@ -77,11 +77,11 @@ class GRU_model:
                 for i in range(0, len(predict), self.output_shape[0])
             ]
         )
-        Y = np.array(Y).reshape((-1, future_length, num_of_feature))
+        Y = np.array(Y).reshape((-1, self.future_length, num_of_feature))
 
         losses = {}
 
-        for dayth in range(future_length):
+        for dayth in range(self.future_length):
             prediction = pd.DataFrame(predict[:, dayth, :])
             true_value = pd.DataFrame(Y[:, dayth, :])
             losses["day " + str(dayth)] = utils.mean_square_error(
