@@ -38,14 +38,14 @@ def train(
         model_path=model_path
     )
 
-    """model.train(
+    model.train(
         (X_train, Y_train),
         (X_val, Y_val),
         batch_size=batch_size,
         epochs=epochs,
         path=model_path,
         patience=patience_of_early_stopping,
-    )"""
+    )
 
     # Save GRU_model
     path = r'model\train\GRU_Model.pkl'

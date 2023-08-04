@@ -28,6 +28,7 @@ with st.sidebar:
         key='select_option'
     )
 
+
 # Option
 if option == 'Dataset':
     dataset_mode()
