@@ -78,7 +78,6 @@ class GRU_model:
             ]
         )
         Y = np.array(Y).reshape((-1, self.future_length, num_of_feature))
-
         losses = {}
 
         for dayth in range(self.future_length):

@@ -27,10 +27,15 @@ def test(
     # Visualize the first predicted day
     column_name = parameters.TargetFeature
     dayth = 0
+    
     Y_df = pd.DataFrame(Y[:, dayth, :], columns=column_name)
+    
     predict_df = pd.DataFrame(predict[:, dayth, :], columns=column_name)
 
     if save_plot != None:
         utils.evaluation_plot(Y_df, predict_df, save_as=save_plot)
 
     return Y_df, predict_df
+
+
+test('Bac Lieu')

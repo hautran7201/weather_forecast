@@ -59,11 +59,11 @@ def test_mode():
 
     if start_evaluation:
         y_df, predict_df = test(province=province)
-
-        y = y_df[[feature]]
+        
+        y = y_df[['scaled_'+feature]]
         y.columns = ['True value']
 
-        predict = predict_df[[feature]]
+        predict = predict_df[['scaled_'+feature]]
         predict.columns = ['Predict']
 
         st.line_chart(pd.concat([y, predict], axis=1))

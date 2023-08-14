@@ -4,6 +4,8 @@ sys.path.insert(1, "./")
 
 import pandas as pd
 import utils
+import os
+from parameter import ModelParameters
 from data_generator import *
 
 def generate_data(
@@ -14,12 +16,8 @@ def generate_data(
     # Load data
     cleaned_df = pd.read_csv(dataset_path)
 
-    # Load parameters
-    parameters = utils.pickle_load(parameter_path)
-
     # columns: ['province', 'province_0', 'province_1', 'province_2', 'province_3','province_4', 'province_5', 'scaled_max', 'scaled_min', 'scaled_rain','scaled_pressure', 'scaled_humidi', 'scaled_cloud', 'scaled_wind']
     selected_feature = cleaned_df.columns[-7:]
-
 
     # Parameters
     ratio = 0.8  # Split ratio
@@ -30,15 +28,12 @@ def generate_data(
     distin_feature = "province"  # Prepare data for each province
     target_feature = list(selected_feature)  # Feature for output
 
-
     # Generator
     generator = Generator(cleaned_df, target_feature, distinguish_feature=distin_feature)
-
 
     # Split data
     X_train, Y_train, X_val, Y_val = generator.train_generator(past, step, fureture_length=future_length, ratio=ratio)
     X_test, Y_test = generator.test_generator(past, step, fureture_length=future_length)
-
 
     # Save
     np.save(file_save_path+r"\X_train.npy", X_train)
@@ -49,6 +44,11 @@ def generate_data(
     utils.pickle_dump(file_save_path+r"\Y_test.pkl", Y_test)
 
     # Save parameters
+    if os.path.exists(parameter_path) == True:
+        parameters = utils.pickle_load(parameters)
+    else:    
+        parameters = ModelParameters()
+        
     parameters.Step = step  # Distance between days
     parameters.PastLength = past # Number of days in the past used to predict
     parameters.FutureLength = future_length  # Number of predicted days in the future
